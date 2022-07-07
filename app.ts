@@ -1,10 +1,13 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 const app = express();
-import './db/config';
+import './db/dbConfig';
+import UserRoutes from './routes/onboarding/UserRoutes';
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
+
+app.use(UserRoutes);
 
 const PORT: number|string = process.env.PORT || 1000;
 
