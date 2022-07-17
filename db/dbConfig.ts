@@ -1,6 +1,11 @@
 import mongoose from 'mongoose';
+import { config as appConfig} from '../config/appConfig';
+import { config } from 'dotenv';
+config();
 
-mongoose.connect('mongodb://localhost:27017/budgeet');
+const baseUrl = appConfig.useLocalDB && 'localhost' || 'host.docker.internal';
+const mongoUrl = process.env.MONGO_URI || `mongodb://${baseUrl}:27017/budgeet`;
+mongoose.connect(mongoUrl);
 const db = mongoose.connection;
 
 db.on('connected', ()=> {
