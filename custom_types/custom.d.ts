@@ -1,7 +1,7 @@
 import { Request } from 'express';
 
 interface ReqCustom extends Request {
-    account?: any
+    user?: any
 }
 
 export {ReqCustom};

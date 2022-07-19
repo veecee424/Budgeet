@@ -5,12 +5,12 @@ import {successResponse, errorResponse} from '../../utils/responseFormatter';
 const logout = async (req: ReqCustom, res: Response) => {
     try {
        
-        const account = req.account;
+        const user = req.user;
         /**
          * Invalidate login hash
          */
-        account.loginHash = null;
-        account.save();
+        user.loginHash = null;
+        user.save();
         return successResponse(res, 200, 'Logged out successfully.', []);
     } catch (e: any) {
         errorResponse(res, e?.code, e?.message);

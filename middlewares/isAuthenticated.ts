@@ -29,7 +29,7 @@ const isAuthenticated = async (req: ReqCustom, res: Response, next: NextFunction
          */
         const authenticatedUser = await User.findById({_id:verified.id});
         if(!authenticatedUser?.loginHash) throw new customError('Session expired, log in to continue.', 400);
-        req.account = authenticatedUser;
+        req.user = authenticatedUser;
         return next();
         
     } catch (e:any) {
