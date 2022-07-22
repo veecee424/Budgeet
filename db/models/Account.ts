@@ -5,8 +5,8 @@ const AccountScehma = new mongoose.Schema({
         type: String,
         required: true
     },
-    UserId: {
-        type: Schema.Types.ObjectId,
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },
     isActivated: {

@@ -1,12 +1,12 @@
 import mongoose, { Schema } from "mongoose";
 
 const tokenSchema = new mongoose.Schema({
-    token: {
+    value: {
         type: String,
         defaul: null
     },
-    AccountId: {
-        type: Schema.Types.ObjectId,
+    account: {
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'Account'
     },
     isUsed: {
