@@ -1,30 +1,26 @@
 import User from '../../db/models/User';
-import {successResponse, errorResponse, customError} from '../../utils/responseFormatter';
+import {successResponse, errorResponse, customError} from '../../utils/ResponseFormatter';
 import { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import {config} from '../../config/appConfig';
+import {config} from '../../config/AppConfig';
 import crypto from 'crypto';
 
 const login = async (req: Request, res: Response) => {
     try {
-        type userPattern = {
-            [key: string]: any;
-        }
+
         const { email, password } = req.body;
-        const foundUser: userPattern | null  = await User.findOne({email, deletedAt: null});
 
+        // Check if user exists
+        const foundUser: any  = await User.findOne({email, deletedAt: null});
         if (!foundUser) throw new customError('Incorrect email/password combination.', 400);
-        /**
-         * Check if password matches
-         */
+        
+        // Check if password matches
         const passwordMatches: boolean = await bcrypt.compare(password, foundUser!.password);
-
         if (!passwordMatches) throw new customError('Incorrect email/password combination.', 400);
         delete foundUser!.password;
-        /**
-         * If password matches, go ahead and generate token
-         */
+        
+        // If password matches, go ahead and generate token
         const payloadToSign = {
             id: foundUser!._id,
             firstName: foundUser!.firstName,

@@ -1,7 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 const app = express();
-import './db/dbConfig';
+import './db/DbConfig';
 import UserRoutes from './routes/onboarding/UserRoutes';
 
 app.use(bodyParser.urlencoded({extended: false}));
