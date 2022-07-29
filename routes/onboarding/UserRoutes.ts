@@ -15,6 +15,6 @@ UserRoutes.post('/logout', isAuthenticated, logout);
 UserRoutes.post('/change-password', isAuthenticated, changePassword);
 UserRoutes.post('/forgotten-password', forgottenPassword);
 UserRoutes.post('/forgotten-password-reset', forgottenPasswordReset);
-UserRoutes.post('/edit-profile', editProfile);
+UserRoutes.patch('/edit-profile', isAuthenticated, editProfile);
 
 export default UserRoutes;

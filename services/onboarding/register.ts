@@ -1,9 +1,7 @@
 import User from '../../db/models/User';
 import Account from '../../db/models/Account';
-import Token from '../../db/models/Token';
 import {successResponse, errorResponse, customError} from '../../utils/ResponseFormatter';
 import { Request, Response } from 'express';
-import crypto from 'crypto';
 import createToken from '../../utils/CreateToken';
 
 const register = async (req: Request, res: Response) => {

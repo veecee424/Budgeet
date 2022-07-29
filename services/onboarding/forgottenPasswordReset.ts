@@ -17,7 +17,7 @@ const forgottenPasswordReset = async (req: Request, res: Response) => {
 
         // Find account and update password
         Account.findOne({
-            AccountId: token.account, 
+            _id: foundToken.account, 
             deletedAt: null
         }, null).populate('user').exec((e, account: any) => {
             if (e) throw new customError(e.message, 400);
