@@ -10,13 +10,13 @@ const isAuthenticated = async (req: ReqCustom, res: Response, next: NextFunction
         // Fetch token from headers
         let verified: any;
         const token: String | undefined = req.header('auth-token');
-        if (!token) throw new customError('Token is required', 400);
+        if (!token) throw new customError('Authentication token is required', 400);
 
         // If token is passed, verify
         try {
             verified = jwt.verify(String(token), config.jwtSecret);
         } catch (e) {
-            throw new customError('Invalid token', 400);
+            throw new customError('Token is either invalid or expired', 400);
         }
 
         // Add authenticated user to the request

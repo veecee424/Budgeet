@@ -2,16 +2,23 @@ import { Response } from 'express';
 import { ReqCustom as Request, User as UserType } from '../../custom_types/Custom';
 import User from '../../db/models/User';
 import { successResponse, errorResponse, customError } from '../../utils/ResponseFormatter';
+import { validateAsync } from '../../utils/Validate';
+import { editprofileSpec } from '../../utils/ValidationSpecs';
 
 const editProfile = async (req: Request, res: Response) => {
     try {
         const user:UserType = req.user;
+        const payload = await validateAsync(editprofileSpec, req.body);
         const updateObj = {
-            firstName: req.body.firstName,
-            lastName: req.body.lastName,
-            email: req.body.email,
-            phoneNumber: req.body.phoneNumber
-        }
+            firstName: payload.firstName,
+            lastName: payload.lastName,
+            email: payload.email,
+            phoneNumber: payload.phoneNumber
+        };
+
+        // Check if email exists
+        const userExists = await User.findOne({email:payload.email, deletedAt: null}, null, {lean:true});
+        if (userExists) throw new customError('Email already exists.', 400);
 
         //Find and edit user
         const updatedUser:UserType|null = await User.findOneAndUpdate({_id: user._id, deletedAt: null}, updateObj, {new:true});

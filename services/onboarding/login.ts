@@ -5,18 +5,20 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import {config} from '../../config/AppConfig';
 import crypto from 'crypto';
+import { validateAsync } from '../../utils/Validate';
+import { loginSpec } from '../../utils/ValidationSpecs';
 
 const login = async (req: Request, res: Response) => {
     try {
 
-        const { email, password } = req.body;
+        const payload = await validateAsync(loginSpec, req.body);
 
         // Check if user exists
-        const foundUser: any  = await User.findOne({email, deletedAt: null});
+        const foundUser: any  = await User.findOne({email:payload.email, deletedAt: null});
         if (!foundUser) throw new customError('Incorrect email/password combination.', 400);
         
         // Check if password matches
-        const passwordMatches: boolean = await bcrypt.compare(password, foundUser!.password);
+        const passwordMatches: boolean = await bcrypt.compare(payload.password, foundUser!.password);
         if (!passwordMatches) throw new customError('Incorrect email/password combination.', 400);
         delete foundUser!.password;
         
