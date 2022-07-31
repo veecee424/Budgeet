@@ -3,16 +3,18 @@ import { Response } from 'express';
 import Token from '../../db/models/Token';
 import Account from '../../db/models/Account';
 import { successResponse, errorResponse, customError } from '../../utils/ResponseFormatter';
+import { validateAsync } from '../../utils/Validate';
+import { forgottenPasswordResetSpec } from '../../utils/ValidationSpecs';
 
 const forgottenPasswordReset = async (req: Request, res: Response) => {
     try {
-        const { token, newPassword, confirmPassword } = req.body;
+        const payload = await validateAsync(forgottenPasswordResetSpec, req.body);
 
         // Check if new password matches the password confirmation
-        if (newPassword !== confirmPassword) throw new customError('New password and confirm password do not match.', 400);
+        if (payload.newPassword !== payload.confirmPassword) throw new customError('New password and confirm password do not match.', 400);
 
         // Check if token is available and unused
-        const foundToken: any = await Token.findOne({value: token});
+        const foundToken: any = await Token.findOne({value: payload.token});
         if (foundToken.isUsed) throw new customError('Token is expired or invalid', 400);
 
         // Find account and update password
@@ -21,7 +23,7 @@ const forgottenPasswordReset = async (req: Request, res: Response) => {
             deletedAt: null
         }, null).populate('user').exec((e, account: any) => {
             if (e) throw new customError(e.message, 400);
-            account.user.password = newPassword;
+            account.user.password = payload.newPassword;
             foundToken.isUsed = 1;
             foundToken.save();
             account.user.save();

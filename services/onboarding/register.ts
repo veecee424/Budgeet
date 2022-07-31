@@ -3,19 +3,23 @@ import Account from '../../db/models/Account';
 import {successResponse, errorResponse, customError} from '../../utils/ResponseFormatter';
 import { Request, Response } from 'express';
 import createToken from '../../utils/CreateToken';
+import { validateAsync } from '../../utils/Validate';
+import { registrationSpec } from '../../utils/ValidationSpecs';
 
 const register = async (req: Request, res: Response) => {
     try {
+
+        const payload = await validateAsync(registrationSpec, req.body);
         // Check if email exists
-        const userExists = await User.findOne({email:req.body.email, deletedAt: null}, null, {lean:true});
+        const userExists = await User.findOne({email:payload.email, deletedAt: null}, null, {lean:true});
         if (userExists) throw new customError('Email already exists.', 400);
 
-        const newUser: any = await User.create(req.body);
+        const newUser: any = await User.create(payload);
         if (!newUser) throw new customError('Unable to create new user.', 400);
 
         // Create account
         const accountPayload = {
-            country: req.body.country,
+            country: payload.country,
             user: newUser._id,
         };
         const userAccount: any = await Account.create(accountPayload);

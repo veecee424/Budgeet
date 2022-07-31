@@ -5,12 +5,15 @@ import Account from '../../db/models/Account';
 import User from '../../db/models/User';
 import Token from '../../db/models/Token';
 import createToken from '../../utils/CreateToken';
+import { validateAsync } from '../../utils/Validate';
+import { forgottenPasswordSpec } from '../../utils/ValidationSpecs';
 
 const forgottenPassword = async (req: Request, res: Response)=> {
     try {
         let token: any = null;
-        const { email } = req.body;
-        const user = await User.findOne({email, deletedAt: null}, {_id: 1}, {lean: true});
+        const payload = await validateAsync(forgottenPasswordSpec, req.body);
+
+        const user = await User.findOne({email:payload.email, deletedAt: null}, {_id: 1}, {lean: true});
 
         if (user) {
             // Use the id fetched above to check accounts table
@@ -28,7 +31,7 @@ const forgottenPassword = async (req: Request, res: Response)=> {
             }
         }
 
-        successResponse(res, 201, 'Password reset link sent to email.', []);
+        successResponse(res, 201, '', []);
     } catch (e:any) {
         errorResponse(res, e?.code, e?.message);
     }
