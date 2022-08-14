@@ -40,9 +40,15 @@ interface Token {
     updatedAt?: string
 }
 
+interface EmailTemplate {
+    templateName: string;
+    subject: string;
+}
+
 export {
     ReqCustom,
     Account,
     User,
-    Token
+    Token,
+    EmailTemplate
 };
