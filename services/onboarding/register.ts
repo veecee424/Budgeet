@@ -6,6 +6,7 @@ import createToken from '../../utils/CreateToken';
 import { validateAsync } from '../../utils/Validate';
 import { registrationSpec } from '../../utils/ValidationSpecs';
 import sendEmail from '../../utils/SendEmail';
+import createWalletId from '../wallets/CreateWallet';
 
 const register = async (req: Request, res: Response) => {
     try {
@@ -32,6 +33,9 @@ const register = async (req: Request, res: Response) => {
             company: 'Budgeet',
             name: newUser.firstName
         });
+
+        // Create wallet
+        await createWalletId(userAccount._id);
         return successResponse(res, 201, 'Registration successful.', {User: newUser, Account: userAccount});
         
     } catch (e: any) {
