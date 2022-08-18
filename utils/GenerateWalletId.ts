@@ -8,7 +8,7 @@ const generateWalletId = (AccountId: string, UserId: string) => {
     // Filter the hash and retrieve 6-8 numbers
     let walletIdArr = [];
     for (let item of HASH) {
-        if (NUM_ARR.indexOf(Number(item)) >=0 && walletIdArr.length < 8) {
+        if (NUM_ARR.indexOf(Number(item)) >=0 && walletIdArr.length <= 8) {
             walletIdArr.push(item);
         }
     }
