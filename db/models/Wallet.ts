@@ -6,8 +6,8 @@ const WALLET_SCHEMA = new mongoose.Schema({
         required: true
     },
     AccountId: {
-        type: String,
-        required: true
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Account'
     },
     deletedAt: {
         type: Date,
