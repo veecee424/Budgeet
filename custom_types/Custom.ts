@@ -45,10 +45,24 @@ interface EmailTemplate {
     subject: string;
 }
 
+interface budgetDetail {
+    name: string,
+    amount: number
+}
+
+interface budgetCategory {
+    duration: string,
+    name: string,
+    budgetDetails: budgetDetail[],
+    owner?: string,
+    isChecked?: number
+}
+
 export {
     ReqCustom,
     Account,
     User,
     Token,
-    EmailTemplate
+    EmailTemplate,
+    budgetCategory
 };

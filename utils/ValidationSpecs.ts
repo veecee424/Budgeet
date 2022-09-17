@@ -90,11 +90,47 @@ const editprofileSpec =  Joi.object({
     })
 });
 
+const budgetCategorySpec = Joi.object({
+    name: Joi.string().trim().required().min(2).max(50).messages({
+        'string.base': 'name should be a string',
+        'string.min': 'name should be more than 2 character',
+        'string.max': 'name should not be more than 50 characters',
+        'any.required': 'name is required'
+    }),
+    duration: Joi.date().iso().required().messages({
+        'date.base': 'duration should be a valid duration/date',
+        'date.format': 'Please provide a valid duration/date in YYYY-MM-DD format.',
+        'any.required': 'duration is required'
+    }),
+    description: Joi.string().min(3).max(200).messages({
+        'string.base': 'description should be a string',
+        'string.min': 'name should be more than 3 character',
+        'string.max': 'name should not be more than 200 characters',
+    }),
+    owner: Joi.any().required().messages({
+        'any.required': 'owner is required'
+    }),
+    budgetDetails: Joi.array().items({
+        name: Joi.string().required().min(2).max(50),
+        amount: Joi.number().positive().required()
+    }).required().messages({
+        'string.base': 'description should be a string',
+        'string.min': 'description should be more than 2 character',
+        'string.max': 'description should not be more than 50 characters',
+        'any.required': 'budgetDetails is required'
+    }),
+    isChecked: Joi.number().required().valid(1, 0).messages({
+        'any.required': 'isChecked is required.',
+        'any.only': 'isChecked can only take values 1 or 0.'
+    })
+});
+
 export {
     registrationSpec,
     loginSpec,
     forgottenPasswordResetSpec,
     forgottenPasswordSpec,
     changePasswordSpec,
-    editprofileSpec
+    editprofileSpec,
+    budgetCategorySpec
 }
