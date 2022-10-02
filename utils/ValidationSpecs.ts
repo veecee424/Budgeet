@@ -90,7 +90,7 @@ const editprofileSpec =  Joi.object({
     })
 });
 
-const budgetCategorySpec = Joi.object({
+const budgetSpec = Joi.object({
     name: Joi.string().trim().required().min(2).max(50).messages({
         'string.base': 'name should be a string',
         'string.min': 'name should be more than 2 character',
@@ -132,5 +132,5 @@ export {
     forgottenPasswordSpec,
     changePasswordSpec,
     editprofileSpec,
-    budgetCategorySpec
+    budgetSpec
 }

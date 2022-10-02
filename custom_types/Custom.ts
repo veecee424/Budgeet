@@ -1,4 +1,5 @@
 import { Request } from 'express';
+import { Document } from 'mongoose';
 
 interface ReqCustom extends Request {
     user?: any
@@ -50,12 +51,14 @@ interface budgetDetail {
     amount: number
 }
 
-interface budgetCategory {
-    duration: string,
+interface budget extends Document {
     name: string,
+    duration: number,
+    description?: string,
     budgetDetails: budgetDetail[],
     owner?: string,
-    isChecked?: number
+    isChecked?: number,
+    deletedAt?: number
 }
 
 export {
@@ -64,5 +67,5 @@ export {
     User,
     Token,
     EmailTemplate,
-    budgetCategory
+    budget
 };

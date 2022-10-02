@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const budgetCategorySchema = new mongoose.Schema({
+const budgetSchema = new mongoose.Schema({
     name:{
         type: String,
         required: true
@@ -30,6 +30,6 @@ const budgetCategorySchema = new mongoose.Schema({
     timestamps: true
 });
 
-budgetCategorySchema.index({name: 1}, {unique: true});
-const budgetCategory = mongoose.model("BudgetCategory", budgetCategorySchema);
-export default budgetCategory;
+budgetSchema.index({name: 1}, {unique: true});
+const budget = mongoose.model("Budget", budgetSchema);
+export default budget;

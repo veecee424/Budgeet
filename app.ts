@@ -3,7 +3,7 @@ import bodyParser from 'body-parser';
 const app = express();
 import './db/DbConfig';
 import UserRoutes from './routes/onboarding/UserRoutes';
-import BudgetCategoryRoute from './routes/category/BudgetCategoryRoutes';
+import BudgetCategoryRoute from './routes/budget/BudgetRoutes';
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
