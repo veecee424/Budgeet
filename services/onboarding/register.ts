@@ -39,6 +39,13 @@ const register = async (req: Request, res: Response) => {
         return successResponse(res, 201, 'Registration successful.', {User: newUser, Account: userAccount});
         
     } catch (e: any) {
+        if (e.code === 11000) {
+            return res.status(500).json({
+                status: "error",
+                message:  'Email already exists.',
+                data: null
+            });
+        }
         errorResponse(res, e?.code, e?.message);
     }
 }
