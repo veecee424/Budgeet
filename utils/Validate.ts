@@ -1,5 +1,5 @@
 import Joi from 'joi';
-import { customError } from '../utils/ResponseFormatter';
+import { customError } from './ResponseFormatter';
  
 const validateAsync = async (schema: Joi.ObjectSchema, payload: Object):Promise<any> => {
     try {
