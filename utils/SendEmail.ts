@@ -1,6 +1,6 @@
 import nodemailer from 'nodemailer';
 import User from '../db/models/User';
-import { customError } from '../utils/ResponseFormatter';
+import { customError } from './ResponseFormatter';
 import { User as UserType, EmailTemplate as EmailTemplateType } from '../custom_types/Custom';
 import EmailTemplate from '../db/models/EmailTemplate';
 import path from 'path';
