@@ -61,11 +61,19 @@ interface budget extends Document {
     deletedAt?: number
 }
 
+interface Wallet {
+    walletId: string
+    AccountId: number
+    deletedAt?: number,
+    _id?: string;
+}
+
 export {
     ReqCustom,
     Account,
     User,
     Token,
     EmailTemplate,
-    budget
+    budget,
+    Wallet
 };
