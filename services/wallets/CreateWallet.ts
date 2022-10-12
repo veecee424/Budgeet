@@ -21,7 +21,7 @@ const createWalletId = async (AccountId: string) => {
             walletId: WALLET_ID
         });
     } catch (e: any) {
-        throw new customError('Something wwent wrong while creating wallet', 400);
+        throw new customError('Something went wrong while creating wallet', 400);
     }
 }
 

@@ -125,6 +125,19 @@ const budgetSpec = Joi.object({
     })
 });
 
+const walletFundingSpec = Joi.object({
+    amount: Joi.number().required().min(1).max(20000000).messages({
+        'number.base': 'amount should be a string',
+        'number.min': 'amount should not be less than 1',
+        'number.max': 'amount should not be more than 20000000',
+        'any.required': 'amount is required'
+    }),
+    currency: Joi.string().required().valid("NGN").messages({
+        'any.required': 'currency is required',
+        'any.only': 'currency can only be NGN for now.'
+    })
+})
+
 export {
     registrationSpec,
     loginSpec,
@@ -132,5 +145,6 @@ export {
     forgottenPasswordSpec,
     changePasswordSpec,
     editprofileSpec,
-    budgetSpec
+    budgetSpec,
+    walletFundingSpec
 }
