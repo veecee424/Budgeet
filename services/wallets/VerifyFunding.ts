@@ -8,12 +8,8 @@ import walletTransaction from "../../db/models/WalletTransaction";
 
 const verifyWalletFunding = async (req: Request, res: Response) => {
     try {
-        // Fetch user Account
-        const ACCOUNT: AccountType|null = await Account.findOne({user: req.user._id}, null, {lean:true});
-        if (!ACCOUNT || ACCOUNT.deletedAt) throw new customError("Account not found", 400);
-
         // Fetch wallet
-        const WALLET: WalletType|null = await Wallet.findOne({AccountId: ACCOUNT._id}, null, {lean:true});
+        const WALLET: WalletType|null = await Wallet.findOne({user: req.user._id}, null, {lean:true});
         if (!WALLET || WALLET.deletedAt) throw new customError("Wallet not found", 400);
 
         // With the transaction id passed, fetch the transaction
