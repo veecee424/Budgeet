@@ -17,7 +17,7 @@ const createWalletId = async (AccountId: string) => {
         
         // Create wallet Id
         await Wallet.create({
-            AccountId,
+            user: ACCOUNT_DETAILS.user,
             walletId: WALLET_ID
         });
     } catch (e: any) {

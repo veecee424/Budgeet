@@ -1,6 +1,6 @@
 import { Router } from "express";
 const UserRoutes: Router = Router();
-import register from '../../services/onboarding/Register';
+import register from '../../services/onboarding/register';
 import login from '../../services/onboarding/Login';
 import logout from '../../services/onboarding/Logout';
 import isAuthenticated from '../../middlewares/IsAuthenticated';

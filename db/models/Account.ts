@@ -1,4 +1,4 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose from "mongoose";
 
 const AccountScehma = new mongoose.Schema({
     country: {
@@ -21,5 +21,6 @@ const AccountScehma = new mongoose.Schema({
     timestamps: true
 });
 
+AccountScehma.index({user: 1}, {unique: true});
 const Account = mongoose.model('Account', AccountScehma);
 export default Account;

@@ -5,9 +5,9 @@ const WALLET_SCHEMA = new mongoose.Schema({
         type: Number,
         required: true
     },
-    AccountId: {
+    user: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Account'
+        ref: 'User'
     },
     deletedAt: {
         type: Date,
@@ -17,6 +17,6 @@ const WALLET_SCHEMA = new mongoose.Schema({
     timestamps: true
 });
 
-WALLET_SCHEMA.index({walletId: 1}, {unique: true});
+WALLET_SCHEMA.index({walletId: 1, user: 1}, {unique: true});
 const WALLET_MODEL = mongoose.model('Wallet', WALLET_SCHEMA);
 export default WALLET_MODEL;
