@@ -136,7 +136,18 @@ const walletFundingSpec = Joi.object({
         'any.required': 'currency is required',
         'any.only': 'currency can only be NGN for now.'
     })
-})
+});
+
+const fundingVerification = Joi.object({
+    transactionId: Joi.number().required().messages({
+        'number.base': 'transactionId should be a number',
+        'any.required': 'transactionId is required'
+    }),
+    txRef: Joi.string().trim().required().messages({
+        'string.base': 'txRef should be a string',
+        'any.required': 'txRef is required'
+    })
+});
 
 export {
     registrationSpec,
@@ -146,5 +157,6 @@ export {
     changePasswordSpec,
     editprofileSpec,
     budgetSpec,
-    walletFundingSpec
+    walletFundingSpec,
+    fundingVerification
 }
