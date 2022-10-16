@@ -47,25 +47,58 @@ interface EmailTemplate {
 }
 
 interface budgetDetail {
-    name: string,
+    name: string;
     amount: number
 }
 
 interface budget extends Document {
-    name: string,
-    duration: number,
-    description?: string,
-    budgetDetails: budgetDetail[],
-    owner?: string,
-    isChecked?: number,
+    name: string;
+    duration: number;
+    description?: string;
+    budgetDetails: budgetDetail[];
+    owner?: string;
+    isChecked?: number;
     deletedAt?: number
 }
 
 interface Wallet {
-    walletId: string
-    AccountId: number
-    deletedAt?: number,
+    walletId: string;
+    AccountId: number;
+    deletedAt?: number;
     _id?: string;
+}
+
+interface walletTransfer {
+    description: string;
+    walletTo: number;
+    walletFrom: number;
+    amount: number;
+    __v?: number;
+    _id?: string;
+    createdAt?: string;
+    updatedAt?: string
+}
+
+interface transactionWarehouse {
+    transactionType: string;
+    user: string;
+    amount: number;
+    __v?: number;
+    _id?: string;
+    createdAt?: string;
+    updatedAt?: string;
+    meta?: string,
+    description?: string
+}
+
+interface ledger {
+    credit: number;
+    debit: number;
+    user: string;
+    __v?: number;
+    _id?: string;
+    createdAt?: string;
+    updatedAt?: string
 }
 
 export {
@@ -75,5 +108,8 @@ export {
     Token,
     EmailTemplate,
     budget,
-    Wallet
+    Wallet,
+    walletTransfer,
+    transactionWarehouse,
+    ledger
 };

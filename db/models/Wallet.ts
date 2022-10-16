@@ -18,6 +18,6 @@ const WALLET_SCHEMA = new mongoose.Schema({
 });
 
 WALLET_SCHEMA.index({walletId: 1}, {unique: true});
-WALLET_SCHEMA.index({walletId: 1}, {unique: true});
+WALLET_SCHEMA.index({user: 1}, {unique: true});
 const WALLET_MODEL = mongoose.model('Wallet', WALLET_SCHEMA);
 export default WALLET_MODEL;
